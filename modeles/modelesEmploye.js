@@ -38,3 +38,25 @@ export const majProfil = (nom, prenom, email, idEmploye) => {
     
     return db.query(majEmploye, [nom, prenom, email, idEmploye]);
 }
+
+export const majMDP = (nouveauMotDePasseCrypte, idEmploye) => {
+     // préparation de la requete de mise à jour
+    const majPass = "UPDATE employes SET motDePasse = ? WHERE idEmploye = ?;";
+
+    // Exécute la requête de mise à jour avec le nouveau mot de passe et l'ID utilisateur
+    return db.query(majPass, [nouveauMotDePasseCrypte, idEmploye]);
+}
+
+export const getMdp = (idEmploye) => {
+    const selectMdp = "SELECT motDePasse FROM employes WHERE idEmploye = ?;";
+
+    return db.query(selectMdp, [idEmploye])
+}
+
+export const deleteEmploye= (idEmploye) => {
+    const deleteProfil = `DELETE FROM employes
+    WHERE idEmploye = ?;`;
+
+    // Exécute la requête de sélection avec l'ID utilisateur fourni
+    return db.query(deleteProfil, [idEmploye]);
+}

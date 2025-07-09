@@ -124,3 +124,54 @@ export const majProfil = async (req, res) => {
         console.log(error);
     }
 }
+
+export const majmotDePasse = async (req, res) => {
+
+    // récupération de l'id de l'utilisateur à partir du token
+    const idEmploye = req.user.idEmploye;
+   
+    // récupération des informations à mettre à jour
+    const {ancienMdp, nouveauMdp} = req.body;
+
+    try {
+        // récupération de l'utilisateur pour vérifier l'ancien mot de passe
+        const [result] = await modelesEmploye.getMdp(idEmploye);
+
+        if (result.length > 0) {
+            const data = result[0];
+            // vérification de l'ancien mot de passe
+            const verifAncienMdp = await bcrypt.compare(ancienMdp, data.motDePasse);
+
+            if (verifAncienMdp) {
+                // cryptage du nouveau mot de passe
+                const nouveauMotDePasseCrypte = await bcrypt.hashSync(nouveauMdp, 10);
+                // utilisation de la connexion bdd pour executer la requete
+                await modelesEmploye.majMDP(nouveauMotDePasseCrypte, idEmploye);
+                res.status(200).json({message: "mot de passe mis à jour"});
+            } else {
+                res.status(403).json({message: "ancien mot de passe incorrect"});
+            }
+        } else {
+            res.status(404).json({message: "utilisateur non trouvé"});
+        }
+        
+    } catch (error) {
+        res.status(500).json({message: "erreur lors de la mise à jour du mot de passe", error});
+        console.log(error);
+    }
+}
+
+export const deleteEmploye = async (req, res) => {
+        // récupération de l'id de l'utilisateur à partir du token
+    // le token est vérifié par le middleware checkToken
+    const idEmploye = req.user.idEmploye;
+
+     try {
+     await modelesEmploye.deleteEmploye(idEmploye);
+
+       res.status(200).json({message: "profil suprimé"});
+    } catch (error) {
+        res.status(500).json({message: "erreur lors de la supression", error});
+        console.log(error);
+    }
+}
