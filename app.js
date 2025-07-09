@@ -15,7 +15,7 @@ app.use(express.json());
 dotenv.config();
 
 // utilisation des routes
-app.use(routesEmploye);
+app.use("/api",routesEmploye);
 
 // démarrage du server sur le port défini dans le fichier .env
 app.listen(process.env.PORT, () => {

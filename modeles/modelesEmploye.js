@@ -15,3 +15,12 @@ export const connexion = (email) => {
 
         return db.query(donneesEmploye, [email]);
 }
+
+export const getProfilId= (idEmploye) => {
+    const getProfil = `SELECT idEmploye, nom, prenom, email, libelle  FROM employes
+    INNER JOIN roles on idRole = roleId
+    WHERE idEmploye = ?;`;
+
+    // Exécute la requête de sélection avec l'ID utilisateur fourni
+    return db.query(getProfil, [idEmploye]);
+}

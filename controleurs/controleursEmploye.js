@@ -69,3 +69,23 @@ export const connexion = async (req, res) => {
 
     }
 }
+
+export const getProfilId = async (req, res) => {
+        // récupération de l'id de l'utilisateur à partir du token
+    // le token est vérifié par le middleware checkToken
+    const idEmploye = req.user.idEmploye;
+
+     try {
+        const [result] = await modelesEmploye.getProfilId(idEmploye);
+
+        if (result.length > 0) {
+            res.status(200).json(result[0]);
+        } else {
+            res.status(404).json({message: "utilisateur non trouvé"});
+        }
+
+    } catch (error) {
+        res.status(500).json({message: "erreur lors de la récupération du profil", error});
+        console.log(error);
+    }
+}
