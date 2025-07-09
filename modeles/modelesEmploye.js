@@ -32,3 +32,9 @@ export const getProfil= () => {
     // Exécute la requête de sélection avec l'ID utilisateur fourni
     return db.query(getProfil);
 }
+
+export const majProfil = (nom, prenom, email, idEmploye) => {
+    const majEmploye = "UPDATE employes SET nom = ?, prenom =?, email = ? WHERE idEmploye = ?;";
+    
+    return db.query(majEmploye, [nom, prenom, email, idEmploye]);
+}

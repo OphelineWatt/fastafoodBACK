@@ -107,3 +107,20 @@ export const getProfil = async (req, res) => {
     }
 }
 
+export const majProfil = async (req, res) => {
+     // récupération de l'id de l'utilisateur à partir du token
+    const idEmploye = req.user.idEmploye;
+   
+    // récupération des informations à mettre à jour
+    const {nom, prenom, email} = req.body;
+
+    try {
+        // utilisation de la connexion bdd pour executer la requete
+        await modelesEmploye.majProfil(nom,prenom,email,idEmploye);
+        // envoi de la réponse
+        res.status(200).json({message: "profil mis à jour"});
+    } catch (error) {
+        res.status(500).json({message: "erreur lors de la mise à jour du profil", error});
+        console.log(error);
+    }
+}
