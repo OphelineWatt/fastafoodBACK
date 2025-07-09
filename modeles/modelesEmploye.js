@@ -24,3 +24,11 @@ export const getProfilId= (idEmploye) => {
     // Exécute la requête de sélection avec l'ID utilisateur fourni
     return db.query(getProfil, [idEmploye]);
 }
+
+export const getProfil= () => {
+    const getProfil = `SELECT idEmploye, nom, prenom, email, libelle  FROM employes
+    INNER JOIN roles on idRole = roleId`;
+
+    // Exécute la requête de sélection avec l'ID utilisateur fourni
+    return db.query(getProfil);
+}
