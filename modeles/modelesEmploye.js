@@ -54,6 +54,7 @@ export const getMdp = (idEmploye) => {
 }
 
 export const deleteEmploye= (idEmploye) => {
+    
     const deleteProfil = `DELETE FROM employes
     WHERE idEmploye = ?;`;
 

@@ -165,7 +165,7 @@ export const majmotDePasse = async (req, res) => {
 export const deleteEmploye = async (req, res) => {
         // récupération de l'id de l'utilisateur à partir du token
     // le token est vérifié par le middleware checkToken
-    const idEmploye = req.user.idEmploye;
+    const idEmploye = req.params.idEmploye;
 
      try {
      await modelesEmploye.deleteEmploye(idEmploye);

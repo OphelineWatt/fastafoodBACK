@@ -18,6 +18,6 @@ router.put('/profil/maj', verifToken, majProfil);
 
 router.put('/profil/motdepasse', verifToken, majmotDePasse);
 
-router.delete('/profil/supression', verifToken, deleteEmploye);
+router.delete('/profil/supression/:idEmploye', deleteEmploye);
 
 export default router;
