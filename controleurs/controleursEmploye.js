@@ -33,13 +33,14 @@ export const connexion = async (req, res) => {
 
     try{
 
-        // appel de la fonction loginUser du modèle userModels
+       
         // cette fonction permet de récupérer les données de l'utilisateur à partir de son mail
         const [resultat] = await modelesEmploye.connexion(email);
 
         //récupération des infos employé sous forme de tableau
         const donnees = resultat[0];
-
+        console.log(donnees);
+        
         if (resultat){
 
             const verifMotDePasse = await bcrypt.compare(motDePasse, donnees.motDePasse);

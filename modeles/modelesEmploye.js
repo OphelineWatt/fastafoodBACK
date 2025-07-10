@@ -11,7 +11,7 @@ export const ajoutEmploye = (nom,prenom, email, motDePasseCrypte,roleId) => {
 
 export const connexion = (email) => {
     
-        const donneesEmploye = "SELECT idEmploye, nom, prenom, email, motDePasse from employes where email like ?;";
+        const donneesEmploye = "SELECT idEmploye, nom, prenom, email, motDePasse, roleId from employes where email like ?;";
 
         return db.query(donneesEmploye, [email]);
 }

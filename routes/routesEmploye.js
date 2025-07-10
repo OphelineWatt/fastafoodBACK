@@ -10,7 +10,7 @@ router.post('/enregistrement', enregistrement);
 
 router.post('/connexion', connexion);
 
-router.get('/profil', verifToken, getProfilId);
+router.get('/profil', verifToken, getProfilId); 
 
 router.get('/employes',getProfil);
 
