@@ -108,6 +108,25 @@ export const getProfil = async (req, res) => {
     }
 }
 
+export const recuperationRole = async (req, res) => {
+
+     try {
+        const [result] = await modelesEmploye.recuperationRole();
+
+        if (result.length > 0) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json({message: "roles non trouvé"});
+        }
+
+    } catch (error) {
+        res.status(500).json({message: "erreur lors des la récupération des roles", error});
+        console.log(error);
+    }
+}
+
+
+
 export const majProfil = async (req, res) => {
     
     const idEmploye = req.params.idEmploye;

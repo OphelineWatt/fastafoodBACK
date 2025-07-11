@@ -27,11 +27,20 @@ export const getProfilId= (idEmploye) => {
 
 export const getProfil= () => {
     const getProfil = `SELECT idEmploye, nom, prenom, email, libelle  FROM employes
-    INNER JOIN roles on idRole = roleId`;
+    INNER JOIN roles on idRole = roleId;`;
 
     // Exécute la requête de sélection avec l'ID utilisateur fourni
     return db.query(getProfil);
 }
+
+export const recuperationRole= () => {
+    const getRole = `SELECT idRole, libelle FROM roles;`
+
+    // Exécute la requête de sélection avec l'ID utilisateur fourni
+    return db.query(getRole);
+}
+
+
 
 export const majProfil = (nom, prenom, email, idEmploye) => {
     const majEmploye = "UPDATE employes SET nom = ?, prenom =?, email = ? WHERE idEmploye = ?;";

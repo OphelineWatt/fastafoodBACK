@@ -1,6 +1,6 @@
 import express from 'express';
 import verifToken from '../middleware/verifToken.js';
-import {enregistrement, connexion, getProfilId, getProfil, majProfil, majmotDePasse, deleteEmploye} from '../controleurs/controleursEmploye.js'
+import {enregistrement, connexion, getProfilId, getProfil, majProfil, majmotDePasse, deleteEmploye, recuperationRole} from '../controleurs/controleursEmploye.js'
 
 
 // création du router permettant de gérer les routes liées aux utilisateurs
@@ -13,6 +13,8 @@ router.post('/connexion', connexion);
 router.get('/profil', verifToken, getProfilId); 
 
 router.get('/employes',getProfil);
+
+router.get('/roles', recuperationRole);
 
 router.put('/profil/maj/:idEmploye', majProfil);
 
