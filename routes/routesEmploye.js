@@ -14,7 +14,7 @@ router.get('/profil', verifToken, getProfilId);
 
 router.get('/employes',getProfil);
 
-router.put('/profil/maj', verifToken, majProfil);
+router.put('/profil/maj/:idEmploye', majProfil);
 
 router.put('/profil/motdepasse', verifToken, majmotDePasse);
 

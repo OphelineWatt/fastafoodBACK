@@ -109,8 +109,8 @@ export const getProfil = async (req, res) => {
 }
 
 export const majProfil = async (req, res) => {
-     // récupération de l'id de l'utilisateur à partir du token
-    const idEmploye = req.user.idEmploye;
+    
+    const idEmploye = req.params.idEmploye;
    
     // récupération des informations à mettre à jour
     const {nom, prenom, email} = req.body;
