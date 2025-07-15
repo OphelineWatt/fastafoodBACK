@@ -3,7 +3,7 @@ import verifToken from '../middleware/verifToken.js';
 import {enregistrement, connexion, getProfilId, getProfil, majProfil, majmotDePasse, deleteEmploye, recuperationRole} from '../controleurs/controleursEmploye.js'
 
 
-// création du router permettant de gérer les routes liées aux utilisateurs
+// création du router permettant de gérer les routes liées aux employés
 const router = express.Router();
 
 router.post('/enregistrement', enregistrement);
