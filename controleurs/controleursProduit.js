@@ -19,3 +19,20 @@ export const recuperationProduit = async (req, res) => {
         console.log(error);
     }
 }
+
+export const ajoutProduit = async (req, res) => {
+    
+    // récupération des données du corps de la requête
+    const {nom, unite, quantite, seuilMini, PrixUnitaire, categorieId} = req.body;
+
+    try {
+
+        await modelesProduit.ajoutProduit(nom, unite, quantite, seuilMini, PrixUnitaire, categorieId)
+        res.status(201).json({ message: "Employé créé"});
+        
+    } catch (error) {
+        // gestion en cas d'erreur
+        res.status(500).json({message: "erreur lors de l'inscription de l'employé", error})
+        
+    }
+}
