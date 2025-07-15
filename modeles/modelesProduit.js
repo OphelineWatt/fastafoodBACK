@@ -8,6 +8,15 @@ export const recuperationProduit= () => {
     return db.query(getProduit);
 }
 
+export const recuperationCategories= () => {
+    const categories = `SELECT idCategorie, libelle FROM categories`;
+
+    // Exécute la requête de sélection avec l'ID utilisateur fourni
+    return db.query(categories);
+}
+
+
+
 export const ajoutProduit = (nom, unite, quantite, seuilMini, PrixUnitaire, categorieId) => {
 
     const insertionProduit = "INSERT INTO produits (nom, unite, quantite, seuilMini, PrixUnitaire, categorieId) VALUES (?,?,?,?,?,?);";

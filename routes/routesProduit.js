@@ -1,9 +1,11 @@
 import express from 'express';
-import {ajoutProduit, recuperationProduit} from '../controleurs/controleursProduit.js'
+import {ajoutProduit, recuperationCategories, recuperationProduit} from '../controleurs/controleursProduit.js'
 
 const router = express.Router();
 
 router.get('/produits',recuperationProduit);
+
+router.get('/categories',recuperationCategories);
 
 router.post('/ajoutProduit', ajoutProduit);
 

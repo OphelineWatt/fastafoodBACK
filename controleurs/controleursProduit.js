@@ -20,6 +20,23 @@ export const recuperationProduit = async (req, res) => {
     }
 }
 
+export const recuperationCategories = async (req, res) => {
+
+     try {
+        const [result] = await modelesProduit.recuperationCategories();
+
+        if (result.length > 0) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json({message: "catégories non trouvé"});
+        }
+
+    } catch (error) {
+        res.status(500).json({message: "erreur lors de la récupération des produit", error});
+        console.log(error);
+    }
+}
+
 export const ajoutProduit = async (req, res) => {
     
     // récupération des données du corps de la requête
@@ -28,11 +45,11 @@ export const ajoutProduit = async (req, res) => {
     try {
 
         await modelesProduit.ajoutProduit(nom, unite, quantite, seuilMini, PrixUnitaire, categorieId)
-        res.status(201).json({ message: "Employé créé"});
+        res.status(201).json({ message: "Produits créé"});
         
     } catch (error) {
         // gestion en cas d'erreur
-        res.status(500).json({message: "erreur lors de l'inscription de l'employé", error})
+        res.status(500).json({message: "erreur lors de l'enregistrement d'un produit", error})
         
     }
 }
