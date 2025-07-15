@@ -25,3 +25,9 @@ export const ajoutProduit = (nom, unite, quantite, seuilMini, PrixUnitaire, cate
     // et retourne le résultat de la requête
     return db.query(insertionProduit, [nom, unite, quantite, seuilMini, PrixUnitaire, categorieId]);
 }
+
+export const majProduit = (nom, unite, quantite, seuilMini, PrixUnitaire, idProduit) => {
+    const majPdt = "UPDATE produits SET nom = ?, unite =?, quantite = ?, seuilMini = ?, PrixUnitaire = ? WHERE idProduit = ?;";
+    
+    return db.query(majPdt, [nom, unite, quantite, seuilMini, PrixUnitaire, idProduit]);
+}
