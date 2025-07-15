@@ -33,13 +33,14 @@ export const connexion = async (req, res) => {
 
     try{
 
-        // appel de la fonction loginUser du modèle userModels
+       
         // cette fonction permet de récupérer les données de l'utilisateur à partir de son mail
         const [resultat] = await modelesEmploye.connexion(email);
 
         //récupération des infos employé sous forme de tableau
         const donnees = resultat[0];
-
+        console.log(donnees);
+        
         if (resultat){
 
             const verifMotDePasse = await bcrypt.compare(motDePasse, donnees.motDePasse);
@@ -107,9 +108,28 @@ export const getProfil = async (req, res) => {
     }
 }
 
+export const recuperationRole = async (req, res) => {
+
+     try {
+        const [result] = await modelesEmploye.recuperationRole();
+
+        if (result.length > 0) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).json({message: "roles non trouvé"});
+        }
+
+    } catch (error) {
+        res.status(500).json({message: "erreur lors des la récupération des roles", error});
+        console.log(error);
+    }
+}
+
+
+
 export const majProfil = async (req, res) => {
-     // récupération de l'id de l'utilisateur à partir du token
-    const idEmploye = req.user.idEmploye;
+    
+    const idEmploye = req.params.idEmploye;
    
     // récupération des informations à mettre à jour
     const {nom, prenom, email} = req.body;
@@ -164,7 +184,7 @@ export const majmotDePasse = async (req, res) => {
 export const deleteEmploye = async (req, res) => {
         // récupération de l'id de l'utilisateur à partir du token
     // le token est vérifié par le middleware checkToken
-    const idEmploye = req.user.idEmploye;
+    const idEmploye = req.params.idEmploye;
 
      try {
      await modelesEmploye.deleteEmploye(idEmploye);

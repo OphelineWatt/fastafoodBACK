@@ -11,7 +11,7 @@ export const ajoutEmploye = (nom,prenom, email, motDePasseCrypte,roleId) => {
 
 export const connexion = (email) => {
     
-        const donneesEmploye = "SELECT idEmploye, nom, prenom, email, motDePasse from employes where email like ?;";
+        const donneesEmploye = "SELECT idEmploye, nom, prenom, email, motDePasse, roleId from employes where email like ?;";
 
         return db.query(donneesEmploye, [email]);
 }
@@ -27,11 +27,20 @@ export const getProfilId= (idEmploye) => {
 
 export const getProfil= () => {
     const getProfil = `SELECT idEmploye, nom, prenom, email, libelle  FROM employes
-    INNER JOIN roles on idRole = roleId`;
+    INNER JOIN roles on idRole = roleId;`;
 
     // Exécute la requête de sélection avec l'ID utilisateur fourni
     return db.query(getProfil);
 }
+
+export const recuperationRole= () => {
+    const getRole = `SELECT idRole, libelle FROM roles;`
+
+    // Exécute la requête de sélection avec l'ID utilisateur fourni
+    return db.query(getRole);
+}
+
+
 
 export const majProfil = (nom, prenom, email, idEmploye) => {
     const majEmploye = "UPDATE employes SET nom = ?, prenom =?, email = ? WHERE idEmploye = ?;";
@@ -54,6 +63,7 @@ export const getMdp = (idEmploye) => {
 }
 
 export const deleteEmploye= (idEmploye) => {
+    
     const deleteProfil = `DELETE FROM employes
     WHERE idEmploye = ?;`;
 
