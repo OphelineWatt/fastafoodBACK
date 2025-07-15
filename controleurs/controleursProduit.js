@@ -71,3 +71,17 @@ export const majProduit = async (req, res) => {
         console.log(error);
     }
 }
+
+export const supressionProduit = async (req, res) => {
+
+    const idProduit = req.params.idProduit;
+
+     try {
+     await modelesProduit.supressionProduit(idProduit);
+
+       res.status(200).json({message: "produit suprimé"});
+    } catch (error) {
+        res.status(500).json({message: "erreur lors de la supression", error});
+        console.log(error);
+    }
+}

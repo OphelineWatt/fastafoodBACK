@@ -15,8 +15,6 @@ export const recuperationCategories= () => {
     return db.query(categories);
 }
 
-
-
 export const ajoutProduit = (nom, unite, quantite, seuilMini, PrixUnitaire, categorieId) => {
 
     const insertionProduit = "INSERT INTO produits (nom, unite, quantite, seuilMini, PrixUnitaire, categorieId) VALUES (?,?,?,?,?,?);";
@@ -30,4 +28,13 @@ export const majProduit = (nom, unite, quantite, seuilMini, PrixUnitaire, idProd
     const majPdt = "UPDATE produits SET nom = ?, unite =?, quantite = ?, seuilMini = ?, PrixUnitaire = ? WHERE idProduit = ?;";
     
     return db.query(majPdt, [nom, unite, quantite, seuilMini, PrixUnitaire, idProduit]);
+}
+
+export const supressionProduit= (idProduit) => {
+    
+    const deleteProduit = `DELETE FROM produits
+    WHERE idProduit = ?;`;
+
+    // Exécute la requête de sélection avec l'ID utilisateur fourni
+    return db.query(deleteProduit, [idProduit]);
 }
