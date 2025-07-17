@@ -1,7 +1,7 @@
 import db from '../configuration/bd.js';
 
 export const recuperationProduit= () => {
-    const getProduit = `SELECT nom, unite, quantite, seuilMini, PrixUnitaire, libelle FROM produits
+    const getProduit = `SELECT idProduit, nom, unite, quantite, seuilMini, PrixUnitaire, libelle FROM produits
     INNER JOIN categories on idCategorie = categorieId;`;
 
     // Exécute la requête de sélection avec l'ID utilisateur fourni
@@ -15,19 +15,19 @@ export const recuperationCategories= () => {
     return db.query(categories);
 }
 
-export const ajoutProduit = (nom, unite, quantite, seuilMini, PrixUnitaire, categorieId) => {
+export const ajoutProduit = (nom, unite, quantite, seuilMini, prixUnitaire, categorieId) => {
 
     const insertionProduit = "INSERT INTO produits (nom, unite, quantite, seuilMini, PrixUnitaire, categorieId) VALUES (?,?,?,?,?,?);";
 
     // Exécute la requête d'insertion avec les paramètres fournis
     // et retourne le résultat de la requête
-    return db.query(insertionProduit, [nom, unite, quantite, seuilMini, PrixUnitaire, categorieId]);
+    return db.query(insertionProduit, [nom, unite, quantite, seuilMini, prixUnitaire, categorieId]);
 }
 
-export const majProduit = (nom, unite, quantite, seuilMini, PrixUnitaire, idProduit) => {
-    const majPdt = "UPDATE produits SET nom = ?, unite =?, quantite = ?, seuilMini = ?, PrixUnitaire = ? WHERE idProduit = ?;";
+export const majProduit = (nom, unite, quantite, seuilMini, prixUnitaire, idProduit) => {
+    const majPdt = "UPDATE produits SET nom = ?, unite =?, quantite = ?, seuilMini = ?, prixUnitaire = ? WHERE idProduit = ?;";
     
-    return db.query(majPdt, [nom, unite, quantite, seuilMini, PrixUnitaire, idProduit]);
+    return db.query(majPdt, [nom, unite, quantite, seuilMini, prixUnitaire, idProduit]);
 }
 
 export const supressionProduit= (idProduit) => {

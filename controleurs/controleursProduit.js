@@ -40,11 +40,12 @@ export const recuperationCategories = async (req, res) => {
 export const ajoutProduit = async (req, res) => {
     
     // récupération des données du corps de la requête
-    const {nom, unite, quantite, seuilMini, PrixUnitaire, categorieId} = req.body;
-
+    const {nom, unite, quantite, seuilMini, prixUnitaire, categorieId} = req.body;
+    console.log(nom, unite, quantite, seuilMini, prixUnitaire, categorieId);
+    
     try {
 
-        await modelesProduit.ajoutProduit(nom, unite, quantite, seuilMini, PrixUnitaire, categorieId)
+        await modelesProduit.ajoutProduit(nom, unite, quantite, seuilMini, prixUnitaire, categorieId)
         res.status(201).json({ message: "Produits créé"});
         
     } catch (error) {
@@ -59,11 +60,11 @@ export const majProduit = async (req, res) => {
     const idProduit = req.params.idProduit;
    
     // récupération des informations à mettre à jour
-    const {nom, unite, quantite, seuilMini, PrixUnitaire} = req.body;
+    const {nom, unite, quantite, seuilMini, prixUnitaire} = req.body;
 
     try {
         // utilisation de la connexion bdd pour executer la requete
-        await modelesProduit.majProduit(nom, unite, quantite, seuilMini, PrixUnitaire, idProduit);
+        await modelesProduit.majProduit(nom, unite, quantite, seuilMini, prixUnitaire, idProduit);
         // envoi de la réponse
         res.status(200).json({message: "produit mis à jour"});
     } catch (error) {
