@@ -30,6 +30,12 @@ export const majProduit = (nom, unite, quantite, seuilMini, prixUnitaire, idProd
     return db.query(majPdt, [nom, unite, quantite, seuilMini, prixUnitaire, idProduit]);
 }
 
+export const majQuantite = (quantite, idProduit) => {
+    const majPdt = "UPDATE produits SET quantite = ? WHERE idProduit = ?;";
+    
+    return db.query(majPdt, [ quantite, idProduit]);
+}
+
 export const supressionProduit= (idProduit) => {
     
     const deleteProduit = `DELETE FROM produits

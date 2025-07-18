@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 import * as modelesCommande from '../modeles/modelesCommande.js';
+import jwt from "jsonwebtoken";
+
 
 dotenv.config();
 
@@ -21,32 +23,34 @@ export const recuperationCommande = async (req, res) => {
 }
 
 export const creationCommande = async (req, res) => {
+  const employeId = req.user.idEmploye;
+  
+  try {
     
-    // récupération des données du corps de la requête
-    const {statutId, employeId, totalHT, borne} = req.body;
+    await modelesCommande.creationCommande(employeId);
 
-    try {
+    res.status(201).json({ message: "Commande créée" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        message: "Erreur lors de l'enregistrement d'une commande",
+        error
+      });
+  }
+};
 
-        await modelesCommande.creationCommande(statutId, employeId, totalHT, borne)
-        res.status(201).json({ message: "Commande créé"});
-        
-    } catch (error) {
-        // gestion en cas d'erreur
-        res.status(500).json({message: "erreur lors de l'enregistrement d'une commande", error})
-        
-    }
-}
 
 export const majCommande = async (req, res) => {
     
     const idCommande = req.params.idCommande;
    
     // récupération des informations à mettre à jour
-    const {statutId, employeId, totalHT, borne} = req.body;
+    const {statutId, totalHT} = req.body;
 
     try {
         // utilisation de la connexion bdd pour executer la requete
-        await modelesCommande.majCommande(statutId, employeId, totalHT, borne, idCommande);
+        await modelesCommande.majCommande(statutId, totalHT, idCommande);
         // envoi de la réponse
         res.status(200).json({message: "commande mis à jour"});
     } catch (error) {

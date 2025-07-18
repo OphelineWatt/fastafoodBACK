@@ -1,7 +1,7 @@
 import db from '../configuration/bd.js';
 
 export const recuperationCommande= () => {
-    const getCommande = `SELECT dateCreation, libelle, nom, prenom, totalHT, borne FROM commandes
+    const getCommande = `SELECT idCommande, dateCreation, libelle, nom, prenom, totalHT, borne FROM commandes
     INNER JOIN statuts on idStatut = statutId
     INNER JOIN employes on idEmploye = employeId`;
 
@@ -9,19 +9,19 @@ export const recuperationCommande= () => {
     return db.query(getCommande);
 }
 
-export const creationCommande = (statutId, employeId, totalHT, borne) => {
+export const creationCommande = (employeId) => {
 
-    const insertionCommande = "INSERT INTO commandes (statutId, employeId, totalHT, borne) VALUES (?,?,?,?);";
+    const insertionCommande = "INSERT INTO commandes (statutId, employeId, totalHT, borne) VALUES (1,?,0,0);";
 
     // Exécute la requête d'insertion avec les paramètres fournis
     // et retourne le résultat de la requête
-    return db.query(insertionCommande, [statutId, employeId, totalHT, borne]);
+    return db.query(insertionCommande, [employeId]);
 }
 
-export const majCommande = (statutId, employeId, totalHT, borne, idCommande) => {
-    const majCmd = "UPDATE commandes SET statutId = ?, employeId =?, totalHT = ?, borne = ? WHERE idCommande = ?;";
+export const majCommande = (statutId, totalHT, idCommande) => {
+    const majCmd = "UPDATE commandes SET statutId = ?, totalHT = ? WHERE idCommande = ?;";
     
-    return db.query(majCmd, [statutId, employeId, totalHT, borne, idCommande]);
+    return db.query(majCmd, [statutId, totalHT, idCommande]);
 }
 
 export const supressionCommande= (idCommande) => {

@@ -1,9 +1,12 @@
 import db from '../configuration/bd.js';
 
-export const recuperationCommandeProduit= () => {
-    const getCp = `SELECT commandeId, produitId, quantite FROM commandeProduits;`;
+export const recuperationCommandeProduit= (commandeId) => {
+    const getCp = `SELECT nom, prixUnitaire, commandeId, produitId, cp.quantite, totalHT, dateCreation, idCommandeProduit FROM commandeProduits cp
+    INNER JOIN produits p on p.idProduit = cp.produitId 
+    INNER JOIN commandes on idCommande = commandeId
+    WHERE commandeId = ?;`;
 
-    return db.query(getCp);
+    return db.query(getCp,[commandeId]);
 }
 
 export const ajoutCommandeProduit = (commandeId, produitId, quantite) => {
@@ -15,10 +18,10 @@ export const ajoutCommandeProduit = (commandeId, produitId, quantite) => {
     return db.query(insertionCommandeProduit, [commandeId, produitId, quantite]);
 }
 
-export const majCommandeProduit = (produitId, quantite, idCommandeProduit) => {
-    const majComPro = "UPDATE commandeProduits SET produitId = ?, quantite =? WHERE idcommandeProduit = ?;";
+export const majCommandeProduit = (quantite, idCommandeProduit) => {
+    const majComPro = "UPDATE commandeProduits SET quantite =? WHERE idcommandeProduit = ?;";
     
-    return db.query(majComPro, [produitId, quantite, idCommandeProduit]);
+    return db.query(majComPro, [ quantite, idCommandeProduit]);
 }
 
 export const supressionCommandeProduit= (idCommandeProduit) => {

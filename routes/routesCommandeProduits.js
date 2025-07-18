@@ -3,7 +3,7 @@ import { ajoutCommandeProduit, majCommandeProduit, recuperationCommandeProduit, 
 
 const router = express.Router();
 
-router.get('/commandeProduits',recuperationCommandeProduit);
+router.get('/commandeProduits/:commandeId',recuperationCommandeProduit);
 
 router.post('/ajoutCommandeProduits', ajoutCommandeProduit);
 

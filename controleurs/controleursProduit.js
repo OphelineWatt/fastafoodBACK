@@ -73,6 +73,24 @@ export const majProduit = async (req, res) => {
     }
 }
 
+export const majQuantite = async (req, res) => {
+    
+    const idProduit = req.params.idProduit;
+   
+    // récupération des informations à mettre à jour
+    const {quantite} = req.body;
+
+    try {
+        // utilisation de la connexion bdd pour executer la requete
+        await modelesProduit.majQuantite(quantite, idProduit);
+        // envoi de la réponse
+        res.status(200).json({message: "produit mis à jour"});
+    } catch (error) {
+        res.status(500).json({message: "erreur lors de la mise à jour du produit", error});
+        console.log(error);
+    }
+}
+
 export const supressionProduit = async (req, res) => {
 
     const idProduit = req.params.idProduit;

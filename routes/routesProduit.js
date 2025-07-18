@@ -1,5 +1,5 @@
 import express from 'express';
-import {ajoutProduit, majProduit, recuperationCategories, recuperationProduit, supressionProduit} from '../controleurs/controleursProduit.js'
+import {ajoutProduit, majProduit, majQuantite, recuperationCategories, recuperationProduit, supressionProduit} from '../controleurs/controleursProduit.js'
 
 
 const router = express.Router();
@@ -11,6 +11,8 @@ router.get('/categories',recuperationCategories);
 router.post('/ajoutProduit', ajoutProduit);
 
 router.put('/produit/maj/:idProduit', majProduit);
+
+router.put('/produit/majQuantite/:idProduit', majQuantite);
 
 router.delete('/produit/supression/:idProduit', supressionProduit);
 

@@ -5,8 +5,10 @@ dotenv.config();
 
 export const recuperationCommandeProduit = async (req, res) => {
 
+    const commandeId = req.params.commandeId;
+
      try {
-        const [result] = await modelesCommandeProduits.recuperationCommandeProduit();
+        const [result] = await modelesCommandeProduits.recuperationCommandeProduit(commandeId);
 
         if (result.length > 0) {
             res.status(200).json(result);
@@ -42,11 +44,11 @@ export const majCommandeProduit = async (req, res) => {
     const idCommandeProduit = req.params.idCommandeProduit;
    
     // récupération des informations à mettre à jour
-    const {produitId, quantite} = req.body;
+    const {quantite} = req.body;
 
     try {
         // utilisation de la connexion bdd pour executer la requete
-        await modelesCommandeProduits.majCommandeProduit(produitId, quantite, idCommandeProduit);
+        await modelesCommandeProduits.majCommandeProduit(quantite, idCommandeProduit);
         // envoi de la réponse
         res.status(200).json({message: "produit mis à jour"});
     } catch (error) {
